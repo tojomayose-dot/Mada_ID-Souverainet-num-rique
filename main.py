@@ -2,9 +2,11 @@ from fastapi import FastAPI
 import nacl.signing
 import nacl.encoding
 import json
-from database  import engine
+from database  import engine, Base
+import models
 
 app = FastAPI(title="Mada-ID Backend")
+Base.metadata.create_all(bind=engine)
 
 # --- MISSION 1 : L'ACCUEIL ---
 @app.get("/")
@@ -59,3 +61,4 @@ try:
     print("✅ SUCCÈS : FastAPI est bien connecté à PostgreSQL !")
 except Exception as e:
     print("❌ ERREUR de connexion :", e)
+
