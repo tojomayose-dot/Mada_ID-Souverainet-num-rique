@@ -1,4 +1,4 @@
-function Sidebar() {
+function Sidebar({ pageCourante, changerPage }) {
   return (
     <div style={{
       width: '220px',
@@ -37,27 +37,44 @@ function Sidebar() {
       </div>
 
       {/* 🔗 Liens de navigation */}
-      <NavItem label="DashboardHome" actif={true} />
-      <NavItem label="Citoyens" actif={false} />
-      <NavItem label="Institutions" actif={false} />
-      <NavItem label="Certificats" actif={false} />
+      <NavItem
+        label="Dashboard"
+        actif={pageCourante === 'dashboard'}
+        onClick={() => changerPage('dashboard')}
+      />
+      <NavItem
+        label="Citoyens"
+        actif={pageCourante === 'citoyens'}
+        onClick={() => changerPage('citoyens')}
+      />
+      <NavItem
+        label="Institutions"
+        actif={pageCourante === 'institutions'}
+        onClick={() => changerPage('institutions')}
+      />
+      <NavItem
+        label="Certificats"
+        actif={pageCourante === 'certificats'}
+        onClick={() => changerPage('certificats')}
+      />
 
     </div>
   )
 }
 
-function NavItem({ label, actif }) {
+function NavItem({ label, actif, onClick }) {
   return (
-    <div style={{
-      padding: '10px 14px',
-      borderRadius: '8px',
-      backgroundColor: actif ? '#378ADD' : 'transparent',
-      color: actif ? 'white' : '#8BACD0',
-      cursor: 'pointer',
-      fontWeight: actif ? '500' : '400',
-      fontSize: '14px',
-      transition: 'background 0.2s'
-    }}>
+    <div
+      onClick={onClick}
+      style={{
+        padding: '10px 14px',
+        borderRadius: '8px',
+        backgroundColor: actif ? '#378ADD' : 'transparent',
+        color: actif ? 'white' : '#8BACD0',
+        cursor: 'pointer',
+        fontWeight: actif ? '500' : '400',
+        fontSize: '14px',
+      }}>
       {label}
     </div>
   )
