@@ -2,9 +2,7 @@ from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
-# ============================================================
-# 🏛️ TABLE INSTITUTION
-# ============================================================
+#  TABLE INSTITUTION
 class Institution(Base):
     __tablename__ = "institutions"
 
@@ -14,13 +12,11 @@ class Institution(Base):
     adresse = Column(String, nullable=True)
     email = Column(String, nullable=True)
 
-    # 🔗 Lien vers les certificats émis par cette institution
+    #  Lien vers les certificats émis par cette institution
     certificats = relationship("Certificat", back_populates="institution")
 
 
-# ============================================================
-# 👤 TABLE CITOYEN
-# ============================================================
+#  TABLE CITOYEN
 class Citoyen(Base):
     __tablename__ = "citoyens"
 
@@ -33,13 +29,11 @@ class Citoyen(Base):
     adresse = Column(String, nullable=True)
     email = Column(String, nullable=True)
 
-    # 🔗 Lien vers les certificats du citoyen
+    #  Lien vers les certificats du citoyen
     certificats = relationship("Certificat", back_populates="citoyen")
 
 
-# ============================================================
-# 📜 TABLE CERTIFICAT
-# ============================================================
+#  TABLE CERTIFICAT
 class Certificat(Base):
     __tablename__ = "certificats"
 
@@ -50,10 +44,10 @@ class Certificat(Base):
     date_emission = Column(Date, nullable=False)
     est_valide = Column(Boolean, default=True)
 
-    # 🔗 Clés étrangères (qui a ce certificat ? quelle institution l'a émis ?)
+    #  Clés étrangères (qui a ce certificat ? quelle institution l'a émis ?)
     citoyen_id = Column(Integer, ForeignKey("citoyens.id"))
     institution_id = Column(Integer, ForeignKey("institutions.id"))
 
-    # 🔗 Relations
+    #  Relations
     citoyen = relationship("Citoyen", back_populates="certificats")
     institution = relationship("Institution", back_populates="certificats")

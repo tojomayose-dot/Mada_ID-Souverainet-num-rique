@@ -2,9 +2,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import date
 
-# ============================================================
-# 📋 SCHÉMAS INSTITUTION
-# ============================================================
+#  SCHÉMAS INSTITUTION
 
 class InstitutionBase(BaseModel):
     """Les infos de base d'une institution (ex: Mairie d'Antananarivo)"""
@@ -25,9 +23,7 @@ class InstitutionResponse(InstitutionBase):
         from_attributes = True  # Permet de lire depuis la base de données
 
 
-# ============================================================
-# 👤 SCHÉMAS CITOYEN
-# ============================================================
+#  SCHÉMAS CITOYEN
 
 class CitoyenBase(BaseModel):
     """Les infos de base d'un citoyen malgache"""
@@ -51,9 +47,7 @@ class CitoyenResponse(CitoyenBase):
         from_attributes = True
 
 
-# ============================================================
-# 📜 SCHÉMAS CERTIFICAT
-# ============================================================
+#  SCHÉMAS CERTIFICAT
 
 class CertificatBase(BaseModel):
     """Les infos de base d'un certificat"""
