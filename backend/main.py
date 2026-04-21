@@ -4,15 +4,17 @@ import nacl.encoding
 import json
 from database import engine, Base
 import models
-from routers import citoyens
+from routers import citoyens, institutions, certificats
 
 app = FastAPI(title="Mada-ID Backend")
 
 # Crée toutes les tables dans PostgreSQL
 Base.metadata.create_all(bind=engine)
 
-# 🔌 Branche le guichet citoyens
+#  Branche les guichet
 app.include_router(citoyens.router)
+app.include_router(institutions.router)
+app.include_router(certificats.router)
 
 # --- MISSION 1 : L'ACCUEIL ---
 @app.get("/")
