@@ -1,0 +1,71 @@
+/* src/components/Sidebar.css */
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background-color: var(--mada-navy);
+  color: var(--text-blanc);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-logo {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: var(--bordure-fine);
+}
+
+.logo-icon {
+  background-color: var(--mada-blue);
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: var(--ombre-bleue);
+}
+
+.nav-menu {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  color: var(--text-gris);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  background-color: var(--mada-navy-light);
+  color: var(--text-blanc);
+}
+
+.nav-item.actif {
+  background-color: var(--mada-blue);
+  color: var(--text-blanc);
+  box-shadow: var(--ombre-bleue);
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: var(--bordure-fine);
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--mada-navy-light);
+  padding: 10px;
+  border-radius: 8px;
+  border: var(--bordure-fine);
+}

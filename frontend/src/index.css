@@ -1,24 +1,27 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =========================================
+   🎨 PALETTE GLOBALE : MADA-ID 2035
+   ========================================= */
+:root {
+  --mada-navy: #0A1628;
+  --mada-navy-light: #1A2C42;
+  --mada-blue: #378ADD;
+  --mada-green: #1D9E75;
+  --mada-bg: #F0F4F8;
+  --text-blanc: #FFFFFF;
+  --text-gris: #94A3B8;
+  --ombre-bleue: 0 4px 15px rgba(55, 138, 221, 0.3);
+  --bordure-fine: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #F0F4F8;
-  color: #1A1A2E;
-  font-size: 14px;
+  background-color: var(--mada-bg);
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* Scrollbar discrète */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #F0F4F8;
-}
-::-webkit-scrollbar-thumb {
-  background: #378ADD;
-  border-radius: 3px;
+/* L'espace de travail principal (utilisé par toutes les pages) */
+.page-content {
+  padding: 40px;
+  flex: 1;
+  overflow-y: auto;
 }

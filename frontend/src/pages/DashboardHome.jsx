@@ -1,81 +1,90 @@
-import { useState, useEffect } from 'react'
-import { getCitoyens, getInstitutions, getCertificats } from '../services/api'
+import React, { useState, useEffect } from 'react';
+import { Users, Building2, FileBadge, TrendingUp } from 'lucide-react';
+import { getCitoyens, getInstitutions, getCertificats } from '../services/api';
+import './DashboardHome.css';
 
 function DashboardHome() {
+  //  1. TON CERVEAU (Les données réelles du Backend)
+  const [citoyens, setCitoyens] = useState([]);
+  const [institutions, setInstitutions] = useState([]);
+  const [certificats, setCertificats] = useState([]);
 
-  //  Les données venant du Backend
-  const [citoyens, setCitoyens] = useState([])
-  const [institutions, setInstitutions] = useState([])
-  const [certificats, setCertificats] = useState([])
-
-  //  Charge les données au démarrage de la page
+  // Charge les données au démarrage de la page
   useEffect(() => {
-    getCitoyens().then(data => setCitoyens(data))
-    getInstitutions().then(data => setInstitutions(data))
-    getCertificats().then(data => setCertificats(data))
-  }, [])
+    // Si tes API renvoient des erreurs parfois, c'est bien de mettre un .catch() plus tard !
+    getCitoyens().then(data => setCitoyens(data || []));
+    getInstitutions().then(data => setInstitutions(data || []));
+    getCertificats().then(data => setCertificats(data || []));
+  }, []);
 
+  //  LA CARROSSER
   return (
-    <div>
-      <h1 style={{
-        fontSize: '22px',
-        fontWeight: '500',
-        color: '#1A1A2E',
-        marginBottom: '2rem'
-      }}>
-        Tableau de bord
-      </h1>
-
-      {/* 📊 Les 3 cartes statistiques */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '16px'
-      }}>
-        <StatCard
-          valeur={citoyens.length}
-          label="Citoyens"
-          couleur="#378ADD"
-        />
-        <StatCard
-          valeur={institutions.length}
-          label="Institutions"
-          couleur="#1D9E75"
-        />
-        <StatCard
-          valeur={certificats.length}
-          label="Certificats"
-          couleur="#BA7517"
-        />
+    <div className="page-content">
+      
+      {/* --- HEADER --- */}
+      <div className="dashboard-header">
+        <div>
+          <h1 className="title-futuriste">Centre de Contrôle</h1>
+          <p style={{ color: 'var(--text-gris)', marginTop: '5px' }}>
+          </p>
+        </div>
+        
+        {/* Feedback Système */}
+        <div className="system-status">
+          <div className="pulse-dot"></div>
+          Connecté à PostgreSQL
+        </div>
       </div>
+
+      {/* --- GRILLE DES STATISTIQUES --- */}
+      <div className="stats-grid">
+        
+        {/* Carte Citoyens (Bleue) */}
+        <div className="stat-card card-blue">
+          <div className="stat-header">
+            <span>Citoyens Inscrits</span>
+            <Users size={24} color="var(--mada-blue)" />
+          </div>
+          {/* On utilise length sur tes vraies données ! */}
+          <div className="stat-value">
+            {citoyens.length.toString().padStart(3, '0')}
+          </div>
+          <div className="stat-desc">
+            <TrendingUp size={14} />
+          </div>
+        </div>
+
+        {/* Carte Institutions (Verte) */}
+        <div className="stat-card card-green">
+          <div className="stat-header">
+            <span>Institutions Agréées</span>
+            <Building2 size={24} color="var(--mada-green)" />
+          </div>
+          <div className="stat-value">
+            {institutions.length.toString().padStart(2, '0')}
+          </div>
+          <div className="stat-desc">
+            <TrendingUp size={14} />
+          </div>
+        </div>
+
+        {/* Carte Certificats (Ambre) */}
+        <div className="stat-card card-amber">
+          <div className="stat-header">
+            <span>Certificats Émis</span>
+            <FileBadge size={24} color="#F59E0B" />
+          </div>
+          <div className="stat-value">
+            {certificats.length.toString().padStart(3, '0')}
+          </div>
+          <div style={{ color: 'var(--text-gris)', fontSize: '0.8rem', fontWeight: 'bold' }}>
+          </div>
+        </div>
+
+      </div>
+
     </div>
-  )
+  );
 }
 
-function StatCard({ valeur, label, couleur }) {
-  return (
-    <div style={{
-      backgroundColor: 'white',
-      borderRadius: '12px',
-      padding: '1.5rem',
-      border: '0.5px solid #E2E8F0'
-    }}>
-      <p style={{
-        fontSize: '12px',
-        color: '#64748B',
-        marginBottom: '8px'
-      }}>
-        {label}
-      </p>
-      <p style={{
-        fontSize: '32px',
-        fontWeight: '500',
-        color: couleur
-      }}>
-        {valeur}
-      </p>
-    </div>
-  )
-}
-
-export default DashboardHome
+export default DashboardHome;

@@ -1,0 +1,108 @@
+/* src/pages/DashboardHome.css */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.title-futuriste {
+  margin: 0;
+  color: var(--mada-navy);
+  font-size: 2rem;
+  letter-spacing: -1px;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--mada-navy);
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--mada-green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--mada-green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(29, 158, 117, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(29, 158, 117, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(29, 158, 117, 0); }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.03);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--ombre-bleue);
+  border-color: rgba(55, 138, 221, 0.3);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.card-blue::before { background: var(--mada-blue); }
+.card-green::before { background: var(--mada-green); }
+.card-amber::before { background: #F59E0B; }
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-gris);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--mada-navy);
+  margin: 15px 0 5px 0;
+  letter-spacing: -2px;
+}
+
+.stat-desc {
+  font-size: 0.8rem;
+  color: var(--mada-green);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
