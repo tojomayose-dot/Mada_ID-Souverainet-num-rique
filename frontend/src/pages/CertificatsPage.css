@@ -1,0 +1,85 @@
+.page-titre {
+  font-size: 22px;
+  font-weight: 500;
+  color: #1A1A2E;
+  margin-bottom: 2rem;
+}
+
+.tableau-conteneur {
+  background-color: white;
+  border-radius: 12px;
+  border: 0.5px solid #E2E8F0;
+  overflow: hidden;
+}
+
+.tableau-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  padding: 12px 16px;
+  background-color: #F8FAFC;
+  border-bottom: 0.5px solid #E2E8F0;
+  font-size: 12px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.tableau-ligne {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid #E2E8F0;
+  font-size: 14px;
+  color: #1A1A2E;
+  align-items: center;
+}
+
+.type-badge {
+  background-color: #E6F1FB;
+  color: #0C447C;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.hash-badge {
+  font-family: monospace;
+  font-size: 10px;
+  background-color: #F1F5F9;
+  color: #475569;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.valide-badge {
+  background-color: #EAF3DE;
+  color: #27500A;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  display: inline-block;
+}
+
+.invalide-badge {
+  background-color: #FCEBEB;
+  color: #A32D2D;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  display: inline-block;
+}
+
+.texte-muted {
+  color: #64748B;
+}
+
+.message-centre {
+  padding: 2rem;
+  text-align: center;
+  color: #64748B;
+}
