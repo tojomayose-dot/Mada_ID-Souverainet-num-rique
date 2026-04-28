@@ -17,13 +17,30 @@ router = APIRouter(
 )
 
 
-#  LISTER tous les certificats
-# GET /certificats/
 @router.get("/", response_model=List[CertificatResponse])
 def lister_certificats(db: Session = Depends(get_db)):
-    """Retourne la liste de tous les certificats émis"""
     certificats = db.query(Certificat).all()
-    return certificats
+    
+    result = []
+    for cert in certificats:
+        citoyen = db.query(Citoyen).get(cert.citoyen_id)
+        institution = db.query(Institution).get(cert.institution_id)
+        
+        result.append({
+            "id": cert.id,
+            "type_certificat": cert.type_certificat,
+            "citoyen_id": cert.citoyen_id,
+            "institution_id": cert.institution_id,
+            "citoyen_prenom": citoyen.prenom if citoyen else None,
+            "citoyen_nom": citoyen.nom if citoyen else None,
+            "institution_nom": institution.nom if institution else None,
+            "date_emission": cert.date_emission,
+            "est_valide": cert.est_valide,
+            "hash_document": cert.hash_document,
+            "signature": cert.signature,
+        })
+    
+    return result
 
 
 #  ÉMETTRE un nouveau certificat
