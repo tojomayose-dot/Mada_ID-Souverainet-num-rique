@@ -60,3 +60,21 @@ def obtenir_institution(institution_id: int, db: Session = Depends(get_db)):
         )
 
     return institution
+
+@router.delete("/{institution_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_institution(
+    institution_id: int,
+    db: Session = Depends(get_db)
+):
+    institution = db.query(Institution).filter(
+        Institution.id == institution_id
+    ).first()
+
+    if not institution:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Institution {institution_id} introuvable"
+        )
+
+    db.delete(institution)
+    db.commit()

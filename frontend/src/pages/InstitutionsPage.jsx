@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getInstitutions, ajouterInstitution } from '../services/api'
+import { getInstitutions, ajouterInstitution, supprimerInstitution } from '../services/api'
+import { Trash2, Building2 } from 'lucide-react'
 import './InstitutionsPage.css'
 
 function InstitutionsPage() {
@@ -77,6 +78,20 @@ function InstitutionsPage() {
       setSubmitting(false)
     }
   }
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Voulez-vous vraiment supprimer cette institution ?")) {
+      return;
+    }
+
+    try {
+      await supprimerInstitution(id);
+      setInstitutions(prev => prev.filter(inst => inst.id !== id));
+      alert("Institution supprimée avec succès");
+    } catch (error) {
+      alert("Erreur lors de la suppression");
+    }
+  };
 
   return (
     <div>
@@ -177,11 +192,31 @@ function InstitutionsPage() {
           <div className="message-centre">Aucune institution enregistrée</div>
         ) : (
           institutions.map(institution => (
-            <div key={institution.id} className="tableau-ligne">
+            <div key={institution.id} className="tableau-ligne" style={{ gridTemplateColumns: '2fr 1fr 1.5fr 1.5fr 0.8fr' }}>
               <span style={{ fontWeight: '500' }}>{institution.nom}</span>
-              <span className="type-badge">{institution.type_institution}</span>
+              <span>{institution.type_institution}</span>
               <span className="texte-muted">{institution.adresse || '—'}</span>
               <span className="texte-muted">{institution.email || '—'}</span>
+              <span>
+                <button 
+                  onClick={() => handleDelete(institution.id)}
+                  style={{
+                    backgroundColor: '#ef4444',
+                    color: 'white',
+                    border: 'none',
+                    padding: '6px 10px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                    fontSize: '13px'
+                  }}
+                >
+                  <Trash2 size={16} />
+                  Supprimer
+                </button>
+              </span>
             </div>
           ))
         )}

@@ -98,3 +98,22 @@ export async function supprimerCertificat(id) {
     throw error;
   }
 }
+
+// Supprimer une institution
+export async function supprimerInstitution(id) {
+  if (!window.confirm("Voulez-vous vraiment supprimer cette institution ?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/institutions/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) throw new Error("Erreur lors de la suppression");
+    return true;
+  } catch (error) {
+    console.error("Erreur suppression institution:", error);
+    throw error;
+  }
+}

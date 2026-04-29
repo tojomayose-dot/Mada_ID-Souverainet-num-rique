@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getCertificats, getCitoyens, getInstitutions, ajouterCertificat, supprimerCertificat } from '../services/api'
+import { Trash2, Building2 } from 'lucide-react'
 import './CertificatsPage.css'
 
 function CertificatsPage() {
@@ -223,6 +224,7 @@ certificats.map(cert => (
           fontSize: '13px'
         }}
       >
+        <Trash2 size={16} />
         Supprimer
       </button>
     </span>
