@@ -76,3 +76,25 @@ export async function ajouterCertificat(donnees) {
     throw error;
   }
 }
+
+// Supprimer un certificat
+export async function supprimerCertificat(id) {
+  if (!window.confirm("Voulez-vous vraiment supprimer ce certificat ?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/certificats/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error("Erreur lors de la suppression");
+    }
+    return true;
+  } catch (error) {
+    console.error("Erreur suppression:", error);
+    alert("Erreur lors de la suppression");
+    throw error;
+  }
+}

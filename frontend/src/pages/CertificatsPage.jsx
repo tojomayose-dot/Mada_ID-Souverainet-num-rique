@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getCertificats, getCitoyens, getInstitutions, ajouterCertificat } from '../services/api'
+import { getCertificats, getCitoyens, getInstitutions, ajouterCertificat, supprimerCertificat } from '../services/api'
 import './CertificatsPage.css'
 
 function CertificatsPage() {
@@ -88,6 +88,22 @@ function CertificatsPage() {
       setSubmitting(false)
     }
   }
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Voulez-vous vraiment supprimer ce certificat ?")) {
+      return;
+    }
+
+    try {
+      await supprimerCertificat(id);
+      // Actualiser la liste après suppression
+      setCertificats(prev => prev.filter(cert => cert.id !== id));
+      alert("Certificat supprimé avec succès");
+    } catch (error) {
+      console.error("Erreur suppression:", error);   // ← important pour voir l'erreur
+      alert("Erreur lors de la suppression du certificat");
+    }
+  };
 
   return (
     <div>
@@ -180,22 +196,38 @@ function CertificatsPage() {
         ) : certificats.length === 0 ? (
           <div className="message-centre">Aucun certificat émis</div>
         ) : (
-          certificats.map(cert => (
-            <div key={cert.id} className="tableau-ligne">
-              <span style={{ fontWeight: '500' }}>
-                {cert.citoyen_prenom || ''} {cert.citoyen_nom || ''} 
-                <span className="texte-muted">(#{cert.citoyen_id})</span>
-              </span>
-              <span>
-                {cert.institution_nom || ''} 
-                <span className="texte-muted">(#{cert.institution_id})</span>
-              </span>
-              <span>{cert.type_certificat || '—'}</span>
-              <span className="texte-muted">
-                {cert.date_emission ? new Date(cert.date_emission).toLocaleDateString('fr-FR') : '—'}
-              </span>
-            </div>
-          ))
+certificats.map(cert => (
+  <div key={cert.id} className="tableau-ligne" style={{ gridTemplateColumns: '1.8fr 1.8fr 1fr 1fr 0.8fr' }}>
+    <span style={{ fontWeight: '500' }}>
+      {cert.citoyen_prenom || ''} {cert.citoyen_nom || ''} 
+      <span className="texte-muted">(#{cert.citoyen_id})</span>
+    </span>
+    <span>
+      {cert.institution_nom || ''} 
+      <span className="texte-muted">(#{cert.institution_id})</span>
+    </span>
+    <span>{cert.type_certificat || '—'}</span>
+    <span className="texte-muted">
+      {cert.date_emission ? new Date(cert.date_emission).toLocaleDateString('fr-FR') : '—'}
+    </span>
+    <span>
+      <button 
+        onClick={() => handleDelete(cert.id)}
+        style={{
+          backgroundColor: '#ef4444',
+          color: 'white',
+          border: 'none',
+          padding: '6px 10px',
+          borderRadius: '6px',
+          cursor: 'pointer',
+          fontSize: '13px'
+        }}
+      >
+        Supprimer
+      </button>
+    </span>
+  </div>
+))
         )}
       </div>
     </div>

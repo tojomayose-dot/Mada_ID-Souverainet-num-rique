@@ -17,8 +17,10 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=List[CertificatResponse])
+#  LISTER tous les certificats
+@router.get("/")
 def lister_certificats(db: Session = Depends(get_db)):
+    """Liste tous les certificats avec noms citoyen et institution"""
     certificats = db.query(Certificat).all()
     
     result = []
@@ -39,7 +41,6 @@ def lister_certificats(db: Session = Depends(get_db)):
             "hash_document": cert.hash_document,
             "signature": cert.signature,
         })
-    
     return result
 
 
@@ -121,3 +122,19 @@ def obtenir_certificat(certificat_id: int, db: Session = Depends(get_db)):
         )
 
     return certificat
+
+# SUPPRIMER un certificat
+@router.delete("/{certificat_id}", status_code=status.HTTP_204_NO_CONTENT)
+def supprimer_certificat(certificat_id: int, db: Session = Depends(get_db)):
+    """Supprime un certificat par son ID"""
+    certificat = db.query(Certificat).filter(Certificat.id == certificat_id).first()
+    
+    if not certificat:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Certificat avec l'ID {certificat_id} introuvable"
+        )
+    
+    db.delete(certificat)
+    db.commit()
+    return None   # 204 No Content
