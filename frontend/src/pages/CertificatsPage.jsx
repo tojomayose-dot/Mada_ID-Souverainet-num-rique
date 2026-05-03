@@ -126,61 +126,79 @@ function CertificatsPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
-          <div className="formulaire-grille">
-            <div className="champ-groupe">
-              <label className="champ-label">Citoyen *</label>
-              <select name="citoyen_id" value={formData.citoyen_id} onChange={handleChange} className="champ-input" required>
-                <option value="">Sélectionner un citoyen</option>
-                {citoyens.map(c => (
-                  <option key={c.id} value={c.id}>
-                    {c.prenom} {c.nom} — {c.cin || ''}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="champ-groupe">
-              <label className="champ-label">Institution *</label>
-              <select name="institution_id" value={formData.institution_id} onChange={handleChange} className="champ-input" required>
-                <option value="">Sélectionner une institution</option>
-                {institutions.map(i => (
-                  <option key={i.id} value={i.id}>
-                    {i.nom} — {i.type_institution}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="champ-groupe">
-              <label className="champ-label">Type de certificat *</label>
-              <input
-                type="text"
-                name="type_certificat"
-                value={formData.type_certificat}
-                onChange={handleChange}
-                className="champ-input"
-                placeholder="ex: Naissance, Permis..."
-                required
-              />
-            </div>
-
-            <div className="champ-groupe">
-              <label className="champ-label">Date de validité</label>
-              <input
-                type="date"
-                name="date_validite"
-                value={formData.date_validite}
-                onChange={handleChange}
-                className="champ-input"
-              />
-            </div>
+        <div className="formulaire-grille">
+          {/* Type de certificat en premier */}
+          <div className="champ-groupe">
+            <label className="champ-label">Type de certificat *</label>
+            <select 
+              name="type_certificat" 
+              value={formData.type_certificat} 
+              onChange={handleChange} 
+              className="champ-input" 
+              required
+            >
+              <option value="">Sélectionner le type</option>
+              <option value="Acte de Naissance">Acte de Naissance</option>
+              <option value="Acte de Mariage">Acte de Mariage</option>
+              <option value="Acte de Décès">Acte de Décès</option>
+              <option value="Permis de Conduire">Permis de Conduire</option>
+              <option value="Casier Judiciaire">Casier Judiciaire</option>
+              <option value="Attestation de Résidence">Attestation de Résidence</option>
+              <option value="Certificat de Nationalité">Certificat de Nationalité</option>
+              <option value="Autre">Autre</option>
+            </select>
           </div>
 
-          <button type="submit" className="bouton-enregistrer" disabled={submitting}>
-            {submitting ? 'Émission...' : 'Émettre le certificat'}
-          </button>
-        </form>
+          {/* Citoyen */}
+          <div className="champ-groupe">
+            <label className="champ-label">Citoyen *</label>
+            <select 
+              name="citoyen_id" 
+              value={formData.citoyen_id} 
+              onChange={handleChange} 
+              className="champ-input" 
+              required
+            >
+              <option value="">Sélectionner un citoyen</option>
+              {citoyens.map(c => (
+                <option key={c.id} value={c.id}>
+                  {c.prenom} {c.nom} — {c.cin || 'CIN non généré'}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Institution */}
+          <div className="champ-groupe">
+            <label className="champ-label">Institution émettrice *</label>
+            <select 
+              name="institution_id" 
+              value={formData.institution_id} 
+              onChange={handleChange} 
+              className="champ-input" 
+              required
+            >
+              <option value="">Sélectionner une institution</option>
+              {institutions.map(i => (
+                <option key={i.id} value={i.id}>
+                  {i.nom} — {i.type_institution}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Date de validité */}
+          <div className="champ-groupe">
+            <label className="champ-label">Date de validité</label>
+            <input
+              type="date"
+              name="date_validite"
+              value={formData.date_validite}
+              onChange={handleChange}
+              className="champ-input"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Tableau */}
